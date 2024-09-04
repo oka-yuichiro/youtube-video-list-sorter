@@ -1,3 +1,22 @@
+const red500 = "#f44336";
+const orange400 = "#ffa726";
+const yellow400 = "#ffee58";
+const green500 = "#4caf50";
+const lightBlue500 = "#03a9f4";
+const indigoA700 = "#304ffe";
+const violetA400 = "#651fff";
+
+const colors = [
+  red500,
+  orange400,
+  yellow400,
+  green500,
+  lightBlue500,
+  indigoA700,
+  violetA400,
+];
+const usedColors = [];
+
 document.getElementById("sortOldest").addEventListener("click", (event) => {
   var button = document.getElementById("sortOldest");
   if (button.textContent === "古い順に表示する") {
@@ -13,6 +32,23 @@ document.getElementById("sortOldest").addEventListener("click", (event) => {
   for (let i = 0; i < 10; i++) {
     const star = document.createElement("div");
     star.classList.add("star");
+
+    let color;
+    if (i < colors.length) {
+      color = colors[i];
+      usedColors.push(color);
+    } else {
+      const remainingColors = colors.filter((c) => !usedColors.includes(c));
+      if (remainingColors.length > 0) {
+        color =
+          remainingColors[Math.floor(Math.random() * remainingColors.length)];
+        usedColors.push(color);
+      } else {
+        color = colors[Math.floor(Math.random() * colors.length)];
+      }
+    }
+
+    star.style.backgroundColor = color;
 
     const angle = Math.random() * 2 * Math.PI;
     const distance = Math.random() * 100 + 50;
